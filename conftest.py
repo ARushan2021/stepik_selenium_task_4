@@ -1,7 +1,9 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import FirefoxProfile
+from selenium.webdriver.chrome.options import Options
+
+from .pages.locators import ProductPageLocators
 
 
 def pytest_addoption(parser):
@@ -40,3 +42,11 @@ def browser(request):
     print("\nquit browser..")
     browser.quit()
 
+
+@pytest.fixture(scope="function")
+def clear_basket(browser):
+    yield
+    browser.find_element(*ProductPageLocators.VIEW_BASKET).click()
+    browser.find_element(*ProductPageLocators.QUANTITY_PRODUCTS).clear()
+    browser.find_element(*ProductPageLocators.QUANTITY_PRODUCTS).send_keys('0')
+    browser.find_element(*ProductPageLocators.BUTTON_UPDATE).click()

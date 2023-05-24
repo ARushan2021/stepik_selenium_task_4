@@ -26,8 +26,3 @@ class ProductPage(BasePage):
         assert price_in_basket == exp_price_book, \
             f'Price in basket invalid! expected price - {exp_price_book}, actual price - {price_in_basket[14:]}'
 
-    def clear_basket(self):
-        self.browser.find_element(*ProductPageLocators.VIEW_BASKET).click()
-        self.browser.find_element(*ProductPageLocators.QUANTITY_PRODUCTS).clear()
-        self.browser.find_element(*ProductPageLocators.QUANTITY_PRODUCTS).send_keys('0')
-        self.browser.find_element(*ProductPageLocators.BUTTON_UPDATE).click()
