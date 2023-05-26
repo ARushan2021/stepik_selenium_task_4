@@ -1,5 +1,3 @@
-from .base_page import BasePage
-from .locators import BasePageLocators
 from .locators import BasketPageLocators
 from .product_page import ProductPage
 
