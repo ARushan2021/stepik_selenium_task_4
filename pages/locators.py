@@ -6,6 +6,7 @@ class BasePageLocators:
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     USER_ICON = (By.CSS_SELECTOR, ".icon-user")
     LOGIN_OUT = (By.CSS_SELECTOR, "#logout_link")
+    VIEW_BASKET = (By.CSS_SELECTOR, "span>a[class='btn btn-default']")
 
 
 class MainPageLocators:
@@ -26,11 +27,13 @@ class LoginPageLocators:
 
 class ProductPageLocators:
     PRODUCT_MESSAGE_IN_BASKET = (By.CSS_SELECTOR, "#messages>div:nth-child(1)>div")
-    PRICE_IN_BASKET = (By.CSS_SELECTOR,
-                       '#messages >div.alert.alert-safe.alert-noicon.alert-info.fade.in>div>p:nth-child(1)>strong')
-    VIEW_BASKET = (By.CSS_SELECTOR, "#default>header>div.page_inner>div>div.basket-mini.pull-right.hidden-xs>span>a")
+    PRICE_IN_BASKET = (By.CSS_SELECTOR, 'div[class="alertinner "]>p>strong')
     QUANTITY_PRODUCTS = (By.CSS_SELECTOR, "#id_form-0-quantity")
     BUTTON_UPDATE = (By.CSS_SELECTOR, "div>span> button")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages>div:nth-child(1)>div>strong")
-    PRODUCT_IN_BASKET = (By.CSS_SELECTOR, '#content_inner>div.basket-title.hidden-xs>div>h2')
-    EMPTY_BASKET = (By.CSS_SELECTOR, '#\content_inner>p')
+
+
+class BasketPageLocators:
+    MESSAGE_EMPTY_BASKET = (By.CSS_SELECTOR, '#content_inner>p')
+    PRODUCT_IN_BASKET = (By.CSS_SELECTOR, '[class="col-sm-6 h3"]')
+

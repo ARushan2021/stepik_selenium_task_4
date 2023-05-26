@@ -1,9 +1,10 @@
 import math
 
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from .locators import BasePageLocators, MainPageLocators
 
 
@@ -16,6 +17,10 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
+    def find_element(self, how, what, timeout=4):
+        WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)),
+            message=f"locator not found {how, what}")
+
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         link.click()
@@ -27,27 +32,24 @@ class BasePage:
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
-    def login_out(self):
-        self.browser.find_element(*BasePageLocators.LOGIN_OUT).click()
-
     def is_element_present(self, how, what):
         try:
-            self.browser.find_element(how, what)
+            self.find_element(how, what)
         except (NoSuchElementException):
             return False
         return True
 
-    def is_not_element_present(self, how, what, timeout=4):
+    def is_not_element_present(self, how, what):
         try:
-            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+            self.find_element(how, what)
         except TimeoutException:
             return True
 
         return False
 
-    def is_disappeared(self, how, what, timeout=4):
+    def is_disappeared(self, how, what):
         try:
-            WebDriverWait(self.browser, timeout, 1).until_not(EC.presence_of_element_located((how, what)))
+            self.find_element(how, what)
         except TimeoutException:
             return False
 
